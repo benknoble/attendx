@@ -53,15 +53,19 @@
         let table = document.getElementById('data')
         data.forEach(datum => {
           let row = document.createElement('tr')
-          let check_el = document.createElement('td')
+
           let name_el = document.createElement('td')
+          name_el.innerHTML = datum.name
+
+          let check_el = document.createElement('td')
           let box = document.createElement('input')
           box.type = 'checkbox'
           box.id = 'check_'+datum.id
           check_el.appendChild(box)
-          name_el.innerHTML = datum.name
+
           row.appendChild(check_el)
           row.appendChild(name_el)
+
           table.appendChild(row)
         })
       }
