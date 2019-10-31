@@ -19,11 +19,11 @@ Name;Student ID
 "foobar";123
 "bar, foo";456
 ```
-2. `$ ./scripts/generate -t "Event title" students.csv > event.html`
-3. Have your students tick their names in the HTML
-4. Download the CSVs from any instructors who issued the attendx survey
-5. `$ ./scripts/merge_csv result*.csv > final.csv`
-6. Suss out those cheaters
+1. `$ ./scripts/generate -t "Event title" students.csv > event.html`
+1. Have your students tick their names in the HTML
+1. Download the CSVs from any instructors who issued the attendx survey
+1. `$ ./scripts/merge_csv result*.csv > final.csv`
+1. Suss out those cheaters
 
 ### Tips 'n' tricks
 
