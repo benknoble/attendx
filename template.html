@@ -31,13 +31,18 @@
         }
       ];
 
-      function download_csv() {
+      function to_csv() {
         let csv = 'id,time\n';
         data.forEach(row => {
           if (row.time === undefined) return
           csv += [row.id, row.time].join(',');
           csv += "\n";
         });
+        return csv
+      }
+
+      function download_csv() {
+        let csv = to_csv()
 
         console.log(csv);
 
