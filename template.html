@@ -60,7 +60,14 @@
           let check_el = document.createElement('td')
           let box = document.createElement('input')
           box.type = 'checkbox'
-          box.id = 'check_'+datum.id
+          box.id = datum.id
+          box.onclick = (event) => {
+            let box = event.target
+            box.disabled = true
+            data
+              .find(x => x.id === parseInt(box.id))
+              .time = new Date().toTimeString()
+          }
           check_el.appendChild(box)
 
           row.appendChild(check_el)
