@@ -17,19 +17,11 @@
 
     <script>
       let data = [
-        {
-          id: 123,
-          name: "Foo"
-        },
-        {
-          id: 456,
-          name: "Bar"
-        },
-        {
-          id: 789,
-          name: "Moo"
-        }
+        //DATA
+        //END_DATA
+        { dummy: true }
       ];
+      data.pop() // throw away dummy
 
       function to_csv() {
         let csv = 'id,time\n';

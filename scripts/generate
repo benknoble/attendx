@@ -1,0 +1,74 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+log() {
+  printf '%s\n' "$@"
+} >&2
+
+usage() {
+  cat <<DOG
+usage: $0 [-t title] file...
+
+Outputs an attendx html file with
+  - data set to an array of JSON objects from the semi-colon SV data in file...
+    - format of file: "NAME";PID
+      - I use semi-colons because NAME often contains commas (and I really don't
+        want to do full-blown CSV parsing)
+      - note the quotes--those are on you
+  - <title> and friends are set if 'title' is given
+DOG
+}
+
+die() {
+  local ex="${1:-1}"
+  exit "$ex"
+}
+
+usage_and_die() { usage && die; }
+
+data() {
+    for f ; do
+      while IFS=';' read -r name pid ; do
+        printf "{ name: %s, id: %d },\n" "$name" "$pid"
+      done < <(sed '1d' "$f")
+    done
+}
+
+main() {
+  if (($# < 1)) ; then
+    usage_and_die
+  fi
+
+  local filter=(cat)
+
+  while getopts 't:' opt ; do
+    case "$opt" in
+      t)
+        filter=(
+          sed "s/Attendx/$OPTARG/g"
+        )
+        ;;
+      ?)
+        usage_and_die
+        ;;
+      *)
+        log "Unsupported option"
+        usage_and_die
+        ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  if (($# < 1)) ; then
+    usage_and_die
+  fi
+
+  {
+    sed '/DATA/,$d' template.html
+    data "$@"
+    sed '1,/END_DATA/d' template.html
+  } | "${filter[@]}"
+}
+
+main "$@"
