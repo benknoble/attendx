@@ -28,8 +28,9 @@ Name;Student ID
 
 ### Tips 'n' tricks
 
-- Use `$ <final.csv awk -F, '{print $1}' |uniq -c | awk '$1 > 1'` to find
-  duplicates in the merge result, indicating someone checked themselves off in
-  two locations (suspicious...)
-- Use `$ <final.csv sed '1d' | awk -F, '{print $1}' | uniq | wc -l` to count the
-  number of unique students who attended
+- Use `$ <final.csv ./contrib/stat` to see all the recorded PIDs
+- Use `$ <final.csv ./contrib/stat dupes` to find duplicates in the merge
+  result, indicating someone checked themselves off in two locations
+  (suspicious...)
+- Use `$ <final.csv ./contrib/stat count` to count the number of unique students
+  who attended

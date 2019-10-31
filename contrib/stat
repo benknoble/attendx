@@ -1,0 +1,51 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+log() {
+  printf '%s\n' "$@"
+} >&2
+
+usage() {
+  cat <<DOG
+usage: $0 [dupes|count]
+
+Filters stdin to produce
+  - all pids given no arguments (not deduplicated)
+  - duplicate ids or count of attendees, given the appropriate argument
+DOG
+}
+
+die() {
+  local ex="${1:-1}"
+  exit "$ex"
+}
+
+usage_and_die() { usage && die; }
+
+pids() {
+  sed '1d' | awk -F, '{print $1}'
+}
+
+dupes() {
+  pids | uniq -c | awk '$1 > 1'
+}
+
+count() {
+  pids | uniq | wc -l
+}
+
+main() {
+  case $# in
+    0) pids ;;
+    1)
+      case "$1" in
+        dupes|count) "$1" ;;
+        *) usage_and_die ;;
+      esac
+      ;;
+    *) usage_and_die ;;
+  esac
+}
+
+main "$@"
