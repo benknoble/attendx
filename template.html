@@ -46,7 +46,7 @@
         hiddenElement.click();
       }
 
-      function display_data() {
+      function load_table() {
         let table = document.getElementById('data')
         data.forEach(datum => {
           let row = document.createElement('tr')
@@ -63,17 +63,17 @@
         })
       }
 
-      function init() {
-        display_data()
-      }
+      $(document).ready(() => {
+        load_table()
+      })
 
     </script>
   </head>
 
-  <body onload='init()'>
+  <body>
+    <button onclick="download_csv()">Download CSV</button>
     <table id='data'>
       <th>Done</th><th>Student</th>
     </table>
-    <button onclick="download_csv()">Download CSV</button>
   </body>
 </html>
