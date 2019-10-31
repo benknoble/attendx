@@ -46,39 +46,33 @@
 
         console.log(csv);
 
-        let hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-        hiddenElement.target = '_blank';
-        hiddenElement.download = 'Attendx.csv';
-        hiddenElement.click();
+        $('<a/>', {
+          href : 'data:text/csv;charset=utf-8,' + encodeURI(csv),
+          target : '_blank',
+          download : 'Attendx.csv'
+        }).click();
 
       }
 
       function load_table() {
-        let table = document.getElementById('data')
+        let table = $('#data')
         data.forEach(datum => {
-          let row = document.createElement('tr')
-
-          let name_el = document.createElement('td')
-          name_el.innerHTML = datum.name
-
-          let check_el = document.createElement('td')
-          let box = document.createElement('input')
-          box.type = 'checkbox'
-          box.id = datum.id
-          box.onclick = (event) => {
+          let row = $('<tr>')
+          row.append($('<td>').append(
+            $('<input>', {
+              type : 'checkbox',
+              id : datum.id,
+            })
+          ))
+          row.append($(`<td>${datum.name}</td>`))
+          table.append(row)
+        })
+        $('input').on('click', (event) => {
             let box = event.target
             box.disabled = true
             data
               .find(x => x.id === parseInt(box.id))
               .time = new Date().toTimeString()
-          }
-          check_el.appendChild(box)
-
-          row.appendChild(check_el)
-          row.appendChild(name_el)
-
-          table.appendChild(row)
         })
       }
 
