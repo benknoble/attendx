@@ -1,0 +1,38 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+log() {
+  printf '%s\n' "$@"
+} >&2
+
+usage() {
+  cat <<DOG
+usage: $0 file...
+
+Outputs merged csv files, preserving duplicates
+(without verifying header/column similarity)
+DOG
+}
+
+die() {
+  local ex="${1:-1}"
+  exit "$ex"
+}
+
+usage_and_die() { usage && die; }
+
+main() {
+  if (($# < 1)) ; then
+    usage_and_die
+  fi
+
+  # output header
+  sed -n '1p' "$1"
+  # output data
+  for f ; do
+    sed '1d' "$f"
+  done | sort -n
+}
+
+main "$@"
