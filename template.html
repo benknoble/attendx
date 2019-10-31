@@ -67,8 +67,9 @@
           row.append($(`<td>${datum.name} (PID: ${datum.id})</td>`))
           table.append(row)
         })
-        $('input[type="checkbox"]').on('click', (event) => {
+        $('input[type="checkbox"]').one('click', (event) => {
           let box = event.target
+          console.log(`${box.id} clicked`)
           box.disabled = true
           data
             .find(x => x.id === parseInt(box.id))
