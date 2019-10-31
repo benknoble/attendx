@@ -32,18 +32,21 @@
       ];
 
       function download_csv() {
-        let csv = 'id,job\n';
+        let csv = 'id,time\n';
         data.forEach(row => {
-          csv += [row.id, row.name].join(',');
+          if (row.time === undefined) return
+          csv += [row.id, row.time].join(',');
           csv += "\n";
         });
 
         console.log(csv);
+
         let hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
         hiddenElement.target = '_blank';
-        hiddenElement.download = 'people.csv';
+        hiddenElement.download = 'Attendx.csv';
         hiddenElement.click();
+
       }
 
       function load_table() {
