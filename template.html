@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <script>
+      let data = [
+        {
+          id: 123,
+          name: "Foo"
+        },
+        {
+          id: 456,
+          name: "Bar"
+        },
+        {
+          id: 789,
+          name: "Moo"
+        }
+      ];
+
+      function download_csv() {
+        let csv = 'id,job\n';
+        data.forEach(row => {
+          csv += [row.id, row.name].join(',');
+          csv += "\n";
+        });
+
+        console.log(csv);
+        let hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'people.csv';
+        hiddenElement.click();
+      }
+
+      function display_data() {
+        let table = document.getElementById('data')
+        data.forEach(datum => {
+          let row = document.createElement('tr')
+          let check_el = document.createElement('td')
+          let name_el = document.createElement('td')
+          let box = document.createElement('input')
+          box.type = 'checkbox'
+          box.id = 'check_'+datum.id
+          check_el.appendChild(box)
+          name_el.innerHTML = datum.name
+          row.appendChild(check_el)
+          row.appendChild(name_el)
+          table.appendChild(row)
+        })
+      }
+
+      function init() {
+        display_data()
+      }
+
+    </script>
+  </head>
+
+  <body onload='init()'>
+    <table id='data'>
+      <th>Done</th><th>Student</th>
+    </table>
+    <button onclick="download_csv()">Download CSV</button>
+  </body>
+</html>
