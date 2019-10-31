@@ -10,7 +10,7 @@ usage() {
   cat <<DOG
 usage: $0 file...
 
-Outputs merged csv files, preserving duplicates
+Outputs merged+sorted csv files, preserving duplicates
 (without verifying header/column similarity)
 DOG
 }
