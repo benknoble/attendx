@@ -30,7 +30,7 @@ Name;Student ID
 
 ### Tips 'n' tricks
 
-- Use `$ <final.csv ./contrib/stat` to see all the recorded PIDs
+- Use `$ <final.csv ./contrib/stat` to see all the recorded IDs
 - Use `$ <final.csv ./contrib/stat dupes` to find duplicates in the merge
   result, indicating someone checked themselves off in two locations
   (suspicious...)

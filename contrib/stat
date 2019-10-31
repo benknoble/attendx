@@ -11,7 +11,7 @@ usage() {
 usage: $0 [dupes|count]
 
 Filters stdin to produce
-  - all pids given no arguments (not deduplicated)
+  - all ids given no arguments (not deduplicated)
   - duplicate ids or count of attendees, given the appropriate argument
 DOG
 }
@@ -23,21 +23,21 @@ die() {
 
 usage_and_die() { usage && die; }
 
-pids() {
+ids() {
   sed '1d' | awk -F, '{print $1}'
 }
 
 dupes() {
-  pids | uniq -c | awk '$1 > 1'
+  ids | uniq -c | awk '$1 > 1'
 }
 
 count() {
-  pids | uniq | wc -l
+  ids | uniq | wc -l
 }
 
 main() {
   case $# in
-    0) pids ;;
+    0) ids ;;
     1)
       case "$1" in
         dupes|count) "$1" ;;

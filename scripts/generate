@@ -12,7 +12,7 @@ usage: $0 [-t title] [-i template.html] file...
 
 Outputs an attendx html file with
   - data set to an array of JSON objects from the semi-colon SV data in file...
-    - format of file: "NAME";PID
+    - format of file: "NAME";ID
       - I use semi-colons because NAME often contains commas (and I really don't
         want to do full-blown CSV parsing)
       - note the quotes--those are on you
@@ -34,8 +34,8 @@ usage_and_die() { usage && die; }
 
 data() {
     for f ; do
-      while IFS=';' read -r name pid ; do
-        printf "{ name: %s, id: %d },\n" "$name" "$pid"
+      while IFS=';' read -r name id ; do
+        printf "{ name: %s, id: %d },\n" "$name" "$id"
       done < <(sed '1d' "$f")
     done
 }
