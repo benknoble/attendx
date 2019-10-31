@@ -67,12 +67,12 @@
           row.append($(`<td>${datum.name}</td>`))
           table.append(row)
         })
-        $('input').on('click', (event) => {
-            let box = event.target
-            box.disabled = true
-            data
-              .find(x => x.id === parseInt(box.id))
-              .time = new Date().toTimeString()
+        $('input[type="checkbox"]').on('click', (event) => {
+          let box = event.target
+          box.disabled = true
+          data
+            .find(x => x.id === parseInt(box.id))
+            .time = new Date().toTimeString()
         })
       }
 
