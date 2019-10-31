@@ -31,3 +31,5 @@ Name;Student ID
 - Use `$ <final.csv uniq -c | awk '$1 > 1'` to find duplicates in the merge
   result, indicating someone checked themselves off in two locations
   (suspicious...)
+- Use `$ <final.csv sed '1d' | uniq | wc -l` to count the number of unique
+  students who attended
