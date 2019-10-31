@@ -8,7 +8,7 @@ log() {
 
 usage() {
   cat <<DOG
-usage: $0 [-t title] file...
+usage: $0 [-t title] [-i template.html] file...
 
 Outputs an attendx html file with
   - data set to an array of JSON objects from the semi-colon SV data in file...
@@ -17,6 +17,11 @@ Outputs an attendx html file with
         want to do full-blown CSV parsing)
       - note the quotes--those are on you
   - <title> and friends are set if 'title' is given
+
+Template can be given with -i:
+  - place the markers DATA and END_DATA at the point where the JSON objects
+    should be placed
+  - all lines containing 'Attendx' will be replaced with 'title' if given
 DOG
 }
 
@@ -40,14 +45,18 @@ main() {
     usage_and_die
   fi
 
+  local template=template.html
   local filter=(cat)
 
-  while getopts 't:' opt ; do
+  while getopts 't:i:' opt ; do
     case "$opt" in
       t)
         filter=(
           sed "s/Attendx/$OPTARG/g"
         )
+        ;;
+      i)
+        template="$OPTARG"
         ;;
       ?)
         usage_and_die

@@ -19,7 +19,9 @@ Name;Student ID
 "foobar";123
 "bar, foo";456
 ```
-1. Generate your attendx survey `$ ./scripts/generate -t "Event title" students.csv > event.html`
+1. Generate your attendx survey `$ ./scripts/generate -t "Event title"
+   students.csv > event.html` (you can use your own template instead of
+   [template.html](./template.html) with the `-i` flag)
 1. Share `event.html` with all the instructors who need to take attendance
 1. Have your students tick their names in the HTML
 1. Download the CSVs from any instructors who issued the attendx survey
