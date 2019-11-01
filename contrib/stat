@@ -10,7 +10,9 @@ usage() {
   cat <<DOG
 usage: $0 [dupes|count]
 
-Filters stdin to produce
+Input: CSV like output of ./scripts/merge_csv
+
+Output:
   - all ids given no arguments (not deduplicated)
   - duplicate ids or count of attendees, given the appropriate argument
 DOG
