@@ -36,3 +36,5 @@ Name;Student ID
   (suspicious...)
 - Use `$ <final.csv ./contrib/stat count` to count the number of unique students
   who attended
+- **New**: `./contrib/stat` takes `--all` to produce every statistic it knows
+  about in one run! (Does not output recorded ids at this time.)

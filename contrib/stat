@@ -8,13 +8,15 @@ log() {
 
 usage() {
   cat <<DOG
-usage: $0 [dupes|count]
+usage: $0 [-a|--all|dupes|count]
 
 Input: CSV like output of ./scripts/merge_csv
 
 Output:
   - all ids given no arguments (not deduplicated)
-  - duplicate ids or count of attendees, given the appropriate argument
+  - given dupes, shows duplicate ids with counts
+  - given count, shows count of unique ids
+  - given --all or -a, shows all available statistics (except just showing ids)
 DOG
 }
 
@@ -37,12 +39,30 @@ count() {
   ids | uniq | wc -l
 }
 
+functions=(
+  dupes
+  count
+)
+
+all() {
+  local tmpdir
+  tmpdir="$(mktemp -d)"
+  trap "rm -rf -- $tmpdir" EXIT
+  local file="$tmpdir/input"
+  cat > "$file"
+  for func in "${functions[@]}" ; do
+    echo "$func" >&2
+    "$func" <"$file"
+  done
+}
+
 main() {
   case $# in
     0) ids ;;
     1)
       case "$1" in
         -h|--help) usage_and_die ;;
+        -a|--all) all ;;
         dupes|count) "$1" ;;
         *) usage_and_die ;;
       esac
