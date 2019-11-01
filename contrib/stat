@@ -40,6 +40,7 @@ main() {
     0) ids ;;
     1)
       case "$1" in
+        -h|--help) usage_and_die ;;
         dupes|count) "$1" ;;
         *) usage_and_die ;;
       esac

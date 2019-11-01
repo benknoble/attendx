@@ -48,8 +48,11 @@ main() {
   local template=template.html
   local filter=(cat)
 
-  while getopts 't:i:' opt ; do
+  while getopts 'ht:i:' opt ; do
     case "$opt" in
+      h)
+        usage_and_die
+        ;;
       t)
         filter=(
           sed "s/Attendx/$OPTARG/g"
