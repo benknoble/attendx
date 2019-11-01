@@ -5,6 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+<style>
+.struck {
+  text-decoration: line-through;
+}
+</style>
+
     <title>
       Attendx
     </title>
@@ -66,6 +72,7 @@
           data
             .find(x => x.id === parseInt(box.id))
             .time = new Date().toTimeString()
+          $(box).closest("td").next().addClass("struck")
         })
       }
 
