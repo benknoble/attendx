@@ -71,7 +71,7 @@
           box.disabled = true
           data
             .find(x => x.id === parseInt(box.id))
-            .time = new Date().toTimeString()
+            .time = new Date().toString()
           $(box).closest("td").next().addClass("struck")
         })
       }
