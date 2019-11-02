@@ -36,7 +36,7 @@ def stat(s, co):
 
     return {
             'missing pids': stringify(missing_pids),
-            f'pids out of range (submit - checkout > {TIME_RANGE}{TIME_RANGE_UNIT})': stringify(pids_out_of_range),
+            f'pids out of range (|submit - checkout| > {TIME_RANGE}{TIME_RANGE_UNIT})': stringify(pids_out_of_range),
            }
 
 
