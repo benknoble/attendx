@@ -51,7 +51,7 @@ all() {
   local file="$tmpdir/input"
   cat > "$file"
   for func in "${functions[@]}" ; do
-    echo "$func" >&2
+    echo "$func"
     "$func" <"$file"
   done
 }
