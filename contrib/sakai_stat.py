@@ -24,11 +24,17 @@ def stat(s, co):
 
     missing_pids = s['pid'][~s['pid'].isin(co_uniq['pid'])]
 
-    co_by_pid = co.drop_duplicates(subset='pid', keep=False).set_index('pid')
-    s_by_pid = s.set_index('pid')
-    time_delta_s = abs(
-            co_by_pid['time'] - s_by_pid['time']
-            ).dt.total_seconds()
+    co_by_pid = (co
+                 .drop_duplicates(subset='pid', keep=False)
+                 .set_index('pid')
+                 .sort_index())
+    s_by_pid = (s
+                .set_index('pid')
+                .sort_index())
+    time_delta_s = (abs(co_by_pid['time'] - s_by_pid['time'])
+                    .dt
+                    .total_seconds()
+                    .sort_index())
     pids_out_of_range = s_by_pid[time_delta_s > TIME_RANGE].index
 
     def stringify(data):
