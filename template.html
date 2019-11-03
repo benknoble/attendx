@@ -61,7 +61,8 @@
               id : datum.id,
             })
           ))
-          row.append($(`<td>${datum.name} (ID: ${datum.id})</td>`))
+          row.append($(`<td>${datum.name}</td>`))
+          row.append($(`<td>${datum.id}</td>`))
           table.append(row)
         })
         $('input[type="checkbox"]').one('click', (event) => {
@@ -71,7 +72,7 @@
           data
             .find(x => x.id === parseInt(box.id))
             .time = new Date().toString()
-          $(box).closest("td").next().addClass("struck")
+          $(box).closest('tr').addClass('struck')
         })
       }
 
@@ -86,7 +87,7 @@
     <h1>Attendx</h1>
     <button onclick="download_csv()">Download CSV</button>
     <table id='data'>
-      <th>Done</th><th>Student</th>
+      <th>Done</th><th>Student</th><th>ID</th>
     </table>
   </body>
 </html>
