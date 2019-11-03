@@ -2,6 +2,8 @@
 
 Developed for UNC's Comp 411 with Montek Singh.
 
+[![This project is considered stable](https://img.shields.io/badge/status-stable-success.svg)](https://benknoble.github.io/status/stable/)
+
 ## What
 
 Track time-stamped attendance
@@ -36,5 +38,7 @@ Name;Student ID
   (suspicious...)
 - Use `$ <final.csv ./contrib/stat count` to count the number of unique students
   who attended
-- **New**: `./contrib/stat` takes `--all` to produce every statistic it knows
+- `./contrib/stat` takes `--all` to produce every statistic it knows
   about in one run! (Does not output recorded ids at this time.)
+- **New**: Sakai users can download assessment data and do
+  `./contrib/sakai_stat.py sakai.xls merged.csv` for even more information
