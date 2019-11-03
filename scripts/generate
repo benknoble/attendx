@@ -19,8 +19,7 @@ Outputs an attendx html file with
   - <title> and friends are set if 'title' is given
 
 Template can be given with -i:
-  - place the markers DATA and END_DATA at the point where the JSON objects
-    should be placed
+  - place the marker DATA at the point where the JSON objects should be placed
   - all lines containing 'Attendx' will be replaced with 'title' if given
 DOG
 }
@@ -79,7 +78,7 @@ main() {
   {
     sed '/DATA/,$d' template.html
     data "$@"
-    sed '1,/END_DATA/d' template.html
+    sed '1,/DATA/d' template.html
   } | "${filter[@]}"
 }
 
