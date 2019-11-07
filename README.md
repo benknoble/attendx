@@ -21,13 +21,13 @@ Name;Student ID
 "foobar";123
 "bar, foo";456
 ```
-1. Generate your attendx survey `$ ./scripts/generate -t "Event title"
-   students.csv > event.html` (you can use your own template instead of
+1. Generate your attendx survey `$ ./bin/generate -t "Event title" students.csv
+   > event.html` (you can use your own template instead of
    [template.html](./template.html) with the `-i` flag)
 1. Share `event.html` with all the instructors who need to take attendance
 1. Have your students tick their names in the HTML
 1. Download the CSVs from any instructors who issued the attendx survey
-1. Merge your results `$ ./scripts/merge_csv result*.csv > final.csv`
+1. Merge your results `$ ./bin/merge_csv result*.csv > final.csv`
 1. Suss out those cheaters
 
 ### Tips 'n' tricks
@@ -38,7 +38,7 @@ Name;Student ID
   (suspicious...)
 - Use `$ <final.csv ./contrib/stat count` to count the number of unique students
   who attended
-- `./contrib/stat` takes `--all` to produce every statistic it knows
-  about in one run! (Does not output recorded ids at this time.)
+- `./contrib/stat` takes `--all` to produce every statistic it knows about in
+  one run! (Does not output recorded ids at this time.)
 - **New**: Sakai users can download assessment data and do
   `./contrib/sakai_stat.py sakai.xls merged.csv` for even more information

@@ -10,7 +10,7 @@ usage() {
   cat <<DOG
 usage: $0 [-a|--all|dupes|count]
 
-Input: CSV like output of ./scripts/merge_csv
+Input: CSV like output of ./bin/merge_csv
 
 Output:
   - all ids given no arguments (not deduplicated)
