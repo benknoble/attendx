@@ -1,0 +1,36 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+log() {
+  printf '%s\n' "$@"
+} >&2
+
+usage() {
+  cat <<DOG
+usage: $0 merged.csv assessment.xls
+DOG
+}
+
+die() {
+  local ex="${1:-1}"
+  exit "$ex"
+}
+
+usage_and_die() { usage && die; }
+
+main() {
+  if (($# < 2)); then
+    usage_and_die
+  fi
+
+  local csv="$1"
+  local xls="$2"
+  local top
+  top="$(git rev-parse --show-toplevel || .)"
+
+  "$top"/contrib/stat -a <"$csv"
+  "$top"/contrib/sakai_stat.py "$xls" <(./contrib/convert_tz "$csv")
+}
+
+main "$@"
