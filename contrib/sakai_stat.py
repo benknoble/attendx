@@ -50,7 +50,7 @@ def parse(f1, f2):
     sakai = pd.read_excel(f1).rename(columns={
         'PID': 'pid',
         'Submit time': 'time',
-        })[['pid', 'time']]
+        }).dropna(subset=['time'])[['pid', 'time']]
     sakai['time'] = sakai['time'].dt.tz_localize(LOCAL_TZ)
 
     checkout = pd.read_csv(f2).rename(columns={
