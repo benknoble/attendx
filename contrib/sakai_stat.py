@@ -46,11 +46,23 @@ def stat(s, co):
     def stringify(data):
         return '\n'.join(str(datum) for datum in data)
 
-    return {
-            'missing pids': stringify(missing_pids),
-            f'left early (submit - checkout > {TIME_RANGE_BEFORE}{TIME_RANGE_UNIT})': stringify(before),
-            f'lingered late (checkout - submit > {TIME_RANGE_AFTER}{TIME_RANGE_UNIT})': stringify(after),
-           }
+    return [
+            {
+                'name': 'missing pids',
+                'string': stringify(missing_pids),
+                'count': len(missing_pids),
+                },
+            {
+                'name': f'left early (submit - checkout > {TIME_RANGE_BEFORE}{TIME_RANGE_UNIT})',
+                'string': stringify(before),
+                'count': len(before),
+                },
+            {
+                'name': f'lingered late (checkout - submit > {TIME_RANGE_AFTER}{TIME_RANGE_UNIT})',
+                'string': stringify(after),
+                'count': len(after),
+                },
+            ]
 
 
 def parse(f1, f2):
@@ -75,10 +87,11 @@ def main():
     sakai, checkout = parse(sys.argv[1], sys.argv[2])
 
     stats = stat(sakai, checkout)
-    for name, values in stats.items():
-        print(name)
-        print('='*len(name))
-        print(values)
+    for st in stats:
+        header = f'{st["name"]} ({st["count"]})'
+        print(header)
+        print('='*len(header))
+        print(st['string'])
         print()
 
 
