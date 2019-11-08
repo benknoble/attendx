@@ -30,7 +30,7 @@ main() {
   top="$(git rev-parse --show-toplevel || .)"
 
   "$top"/contrib/stat -a <"$csv"
-  "$top"/contrib/sakai_stat.py "$xls" <(./contrib/convert_tz "$csv")
+  "$top"/contrib/sakai_stat.py "$xls" <("$top"/contrib/convert_tz "$csv")
 }
 
 main "$@"
