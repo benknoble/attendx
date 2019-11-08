@@ -1,0 +1,34 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+log() {
+  printf '%s\n' "$@"
+} >&2
+
+usage() {
+  cat <<DOG
+usage: $0 sakai_students.csv
+
+Convert downloaded sakai to input for bin/generate
+DOG
+}
+
+die() {
+  local ex="${1:-1}"
+  exit "$ex"
+}
+
+usage_and_die() { usage && die; }
+
+main() {
+  if (($# != 1)); then
+    usage_and_die
+  fi
+
+  <"$1" sed 's//\'$'\n''/g' \
+    | cut -d, -f 2- \
+    | sed 's/,/;/2'
+}
+
+main "$@"
