@@ -33,9 +33,7 @@ usage_and_die() { usage && die; }
 
 data() {
   for f ; do
-    while IFS=';' read -r name id ; do
-      printf "{ name: %s, id: %d },\n" "$name" "$id"
-    done < <(sed '1d' "$f")
+    <"$f" sed '1d' | awk -F';' '{ printf "{ name: %s, id: %d },\n", $1, $2 }'
   done
 }
 
