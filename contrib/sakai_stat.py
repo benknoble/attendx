@@ -15,7 +15,8 @@ except ModuleNotFoundError:
 
 
 LOCAL_TZ = dt.datetime.now(dt.timezone(dt.timedelta(0))).astimezone().tzinfo
-TIME_RANGE = 5 * 60  # 5 minutes
+TIME_RANGE_AFTER = 5 * 60  # 5 minutes
+TIME_RANGE_BEFORE = 1 * 60  # 1 minutes
 TIME_RANGE_UNIT = 's'
 
 
@@ -31,18 +32,24 @@ def stat(s, co):
     s_by_pid = (s
                 .set_index('pid')
                 .sort_index())
-    time_delta_s = (abs(co_by_pid['time'] - s_by_pid['time'])
-                    .dt
-                    .total_seconds()
-                    .sort_index())
-    pids_out_of_range = s_by_pid[time_delta_s > TIME_RANGE].index
+    after_delta_s = ((co_by_pid['time'] - s_by_pid['time'])
+                     .dt
+                     .total_seconds()
+                     .sort_index())
+    after = s_by_pid[after_delta_s > TIME_RANGE_AFTER].index
+    before_delta_s = ((s_by_pid['time'] - co_by_pid['time'])
+                      .dt
+                      .total_seconds()
+                      .sort_index())
+    before = s_by_pid[before_delta_s > TIME_RANGE_BEFORE].index
 
     def stringify(data):
         return '\n'.join(str(datum) for datum in data)
 
     return {
             'missing pids': stringify(missing_pids),
-            f'pids out of range (|submit - checkout| > {TIME_RANGE}{TIME_RANGE_UNIT})': stringify(pids_out_of_range),
+            f'left early (submit - checkout > {TIME_RANGE_BEFORE}{TIME_RANGE_UNIT})': stringify(before),
+            f'lingered late (checkout - submit > {TIME_RANGE_AFTER}{TIME_RANGE_UNIT})': stringify(after),
            }
 
 
