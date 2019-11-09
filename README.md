@@ -15,17 +15,17 @@ Any reason you want (like, thwarting cheating)
 ## How
 
 1. Download and prepare your student data
-  - For ease of use, it needs to be semi-colon separated in the format
+   - For ease of use, it needs to be semi-colon separated in the format
 ```
 Name;Student ID
 "foobar";123
 "bar, foo";456
 ```
-  - If you use Sakai, you can export your roster as CSV and use
-    `./contrib/sak_to_gen` to put it in this format
+   - If you use Sakai, you can export your roster as CSV and use
+     `./contrib/sak_to_gen` to put it in this format
 1. Generate your attendx survey `./bin/generate -t "Event title" students.csv > event.html`
-  - you can use your own template instead of [template.html](./template.html)
-    with the `-i` flag
+   - you can use your own template instead of [template.html](./template.html)
+     with the `-i` flag
 1. Share `event.html` with all the instructors who need to take attendance
 1. Have your instructors tick student names in the HTML
 1. Download the CSVs from any instructors who issued the attendx survey
