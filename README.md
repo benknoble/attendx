@@ -15,22 +15,25 @@ Any reason you want (like, thwarting cheating)
 ## How
 
 1. Download and prepare your student data
-   - For ease of use, it needs to be semi-colon separated in the format
-```
-Name;Student ID
-"foobar";123
-"bar, foo";456
-```
+   - For ease of use, it needs to be semi-colon separated (see [format](#roster-format))
    - If you use Sakai, you can export your roster as CSV and use
-     `./contrib/sak_to_gen` to put it in this format
+     `./contrib/sak_to_gen` to put it in the required format
 1. Generate your attendx survey `./bin/generate -t "Event title" students.csv > event.html`
    - you can use your own template instead of [template.html](./template.html)
      with the `-i` flag
 1. Share `event.html` with all the instructors who need to take attendance
 1. Have your instructors tick student names in the HTML
 1. Download the CSVs from any instructors who issued the attendx survey
-1. Merge your results `$ ./bin/merge_csv result*.csv > final.csv`
+1. Merge your results `./bin/merge_csv result*.csv > final.csv`
 1. Suss out those cheaters
+
+### Roster format
+
+```
+Name;Student ID
+"foobar";123
+"bar, foo";456
+```
 
 ### Tips 'n' tricks
 
@@ -40,13 +43,14 @@ Name;Student ID
   (suspicious...)
 - Use `<final.csv ./contrib/stat count` to count the number of unique students
   who attended
-- `./contrib/stat` takes `--all` to produce every statistic it knows about in
-  one run! (Does not output recorded ids at this time.)
+- [`./contrib/stat`](./contrib/stat) takes `--all` to produce every statistic it
+  knows about in one run! (Does not output recorded ids at this time.)
 - Sakai users can download assessment data and do `./contrib/sakai_stat.py sakai.xls merged.csv`
   for even more information (may need to `pip3 install -r ./contrib/requirements.txt`)
-- **New**: `./contrib/full-report` can be used for a full report, combining
-  stats and sakai parsing. It makes use of `./contrib/convert_tz`, since some
-  browsers output EST as Eastern Standard Time in the time-stamps (??)
+- **New**: [`./contrib/full-report`](./contrib/full-report) can be used for a
+  full report, combining stats and sakai parsing. It makes use of
+  [`./contrib/convert_tz`](./contrib/convert_tz), since some browsers output EST
+  as Eastern Standard Time in the time-stamps (??)
 
 ### Generating sheets for a single class
 
