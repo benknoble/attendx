@@ -61,8 +61,8 @@
               id : datum.id,
             })
           ))
-          row.append($(`<td>${datum.name}</td>`))
           row.append($(`<td>${datum.id}</td>`))
+          row.append($(`<td>${datum.name}</td>`))
           table.append(row)
         })
         $('input[type="checkbox"]').one('click', (event) => {
@@ -87,7 +87,7 @@
     <h1>Attendx</h1>
     <button onclick="download_csv()">Download CSV</button>
     <table id='data'>
-      <th>Done</th><th>Student</th><th>ID</th>
+      <th>Done</th><th>ID</th><th>Student</th>
     </table>
   </body>
 </html>
