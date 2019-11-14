@@ -6,6 +6,7 @@ sakai_stat excel_sheet merged_CSV
 reads merged CSV, compares to provided sakai-exported XLS
 """
 
+import re
 import sys
 import datetime as dt
 try:
@@ -75,7 +76,12 @@ def parse(f1, f2):
     checkout = pd.read_csv(f2).rename(columns={
         'id': 'pid',
         })
-    checkout['time'] = pd.to_datetime(checkout['time']).dt.tz_convert(LOCAL_TZ)
+    checkout['time'] = pd.to_datetime(
+            checkout['time'].apply(
+                lambda s: re.sub('\([^)]*\)', '', s, count=1).strip()
+                ),
+            format='%a %b %d %Y %X GMT%z'
+            ).dt.tz_convert(LOCAL_TZ)
 
     return (sakai, checkout)
 

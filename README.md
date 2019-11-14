@@ -48,9 +48,7 @@ Name;Student ID
 - Sakai users can download assessment data and do `./contrib/sakai_stat.py sakai.xls merged.csv`
   for even more information (may need to `pip3 install -r ./contrib/requirements.txt`)
 - **New**: [`./contrib/full-report`](./contrib/full-report) can be used for a
-  full report, combining stats and sakai parsing. It makes use of
-  [`./contrib/convert_tz`](./contrib/convert_tz), since some browsers output EST
-  as Eastern Standard Time in the time-stamps (??)
+  full report, combining stats and sakai parsing.
 
 ### Generating sheets for a single class
 
