@@ -74,9 +74,9 @@ main() {
   fi
 
   {
-    sed '/DATA/,$d' template.html
+    sed '/DATA/,$d' "$template"
     data "$@"
-    sed '1,/DATA/d' template.html
+    sed '1,/DATA/d' "$template"
   } | "${filter[@]}"
 }
 
