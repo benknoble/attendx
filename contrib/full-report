@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 
 set -euo pipefail
+current_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 log() {
   printf '%s\n' "$@"
@@ -26,11 +27,9 @@ main() {
 
   local csv="$1"
   local xls="$2"
-  local top
-  top="$(git rev-parse --show-toplevel || .)"
 
-  "$top"/contrib/stat -a <"$csv"
-  "$top"/contrib/sakai_stat.py "$xls" "$csv"
+  "$current_dir"/stat -a <"$csv"
+  "$current_dir"/sakai_stat.py "$xls" "$csv"
 }
 
 main "$@"
