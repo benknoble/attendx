@@ -17,7 +17,7 @@ Any reason you want (like, thwarting cheating)
 1. Download and prepare your student data
    - For ease of use, it needs to be semi-colon separated (see [format](#roster-format))
    - If you use Sakai, you can export your roster as CSV and use
-     `./contrib/sak_to_gen` to put it in the required format
+     `./bin/sak_to_gen` to put it in the required format
 1. Generate your attendx survey `./bin/generate -t "Event title" students.csv > event.html`
    - you can use your own template instead of [template.html](./template.html)
      with the `-i` flag
@@ -37,18 +37,18 @@ Name;Student ID
 
 ### Tips 'n' tricks
 
-- Use `<final.csv ./contrib/stat` to see all the recorded IDs
-- Use `<final.csv ./contrib/stat dupes` to find duplicates in the merge
-  result, indicating someone checked themselves off in two locations
-  (suspicious...)
-- Use `<final.csv ./contrib/stat count` to count the number of unique students
-  who attended
-- [`./contrib/stat`](./contrib/stat) takes `--all` to produce every statistic it
-  knows about in one run! (Does not output recorded ids at this time.)
-- Sakai users can download assessment data and do `./contrib/sakai_stat.py sakai.xls merged.csv`
-  for even more information (may need to `pip3 install -r ./contrib/requirements.txt`)
-- **New**: [`./contrib/full-report`](./contrib/full-report) can be used for a
-  full report, combining stats and sakai parsing.
+- Use `<final.csv ./bin/stats` to see all the recorded IDs
+- Use `<final.csv ./bin/stats dupes` to find duplicates in the merge result,
+  indicating someone checked themselves off in two locations (suspicious...)
+- Use `<final.csv ./bin/stats count` to count the number of unique students who
+  attended
+- [`./bin/stats`](./bin/stats) takes `--all` to produce every statistic it knows
+  about in one run! (Does not output recorded ids at this time.)
+- Sakai users can download assessment data and do `./bin/sakai_stat.py sakai.xls
+  merged.csv` for even more information (may need to `pip3 install -r
+  ./bin/requirements.txt`)
+- **New**: [`./bin/full-report`](./bin/full-report) can be used for a full
+  report, combining stats and sakai parsing.
 
 ### Generating sheets for a single class
 
@@ -59,6 +59,7 @@ class:
 #! /usr/bin/env bash
 
 set -euo pipefail
+current_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 log() {
   printf '%s\n' "$@"
@@ -82,11 +83,9 @@ main() {
     usage_and_die
   fi
 
-  local top
   local dir=./quizzes/quiz_"$1"
-  top="$(git rev-parse --show-toplevel || printf .)"
-  mkdir "$top"/"$dir"
-  "$top"/bin/generate -t "Quiz $1" "$top"/data/411-students.csv > "$dir"/quiz.html
+  mkdir "$current_dir"/"$dir"
+  "$current_dir"/../bin/generate -t "Quiz $1" "$current_dir"/../data/411-students.csv > "$dir"/quiz.html
 }
 
 main "$@"

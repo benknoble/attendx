@@ -28,7 +28,7 @@ main() {
   local csv="$1"
   local xls="$2"
 
-  "$current_dir"/stat -a <"$csv"
+  "$current_dir"/stats -a <"$csv"
   "$current_dir"/sakai_stat.py "$xls" "$csv"
 }
 
